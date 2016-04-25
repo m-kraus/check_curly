@@ -23,7 +23,7 @@ check_curly is a plugin for nagios and similar monitoring tools like icinga, nae
            (default Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/6.0))
         --ntlm Set NTLM auth credentials [USER:PASSWORD]
     
-        -g Find string on [STRING]
+        -g Find string on page [STRING]
     
         --sizebelowcritical Critical below page size in bytes [SIZE]
         --sizeovercritical Critical over page size in bytes [SIZE]
