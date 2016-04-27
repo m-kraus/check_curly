@@ -66,9 +66,9 @@ if ($Pocet>1){
 
       case '-u':    
         if ($Pocet>$i+1){
-          curl_setopt($ch, CURLOPT_URL, $argv[++$i]);
-          $url = $argv[$i];
-          if ($DebugArgs) echo "\nDEBUG: -u ".$argv[$i];
+          $url = $argv[++$i];
+          if ($DebugArgs) echo "\nDEBUG: -u ".$url;
+          curl_setopt($ch, CURLOPT_URL, $url);
         }else{
           echo "ERROR in parsing argument -U: missing value";
           Help(3);
@@ -78,7 +78,7 @@ if ($Pocet>1){
       case '-w':    
         if ($Pocet>$i+1){
           $Tw=$argv[++$i];
-          if ($DebugArgs) echo "\nDEBUG: -w ".$argv[$i];
+          if ($DebugArgs) echo "\nDEBUG: -w ".$Tw;
         }else{
           echo "ERROR in parsing argument -w: missing value";
           Help(3);
@@ -88,7 +88,7 @@ if ($Pocet>1){
       case '-c':    
         if ($Pocet>$i+1){
           $Tc=$argv[++$i];
-          if ($DebugArgs) echo "\nDEBUG: -Tc ".$argv[$i];
+          if ($DebugArgs) echo "\nDEBUG: -c ".$Tc;
         }else{
           echo "ERROR in parsing argument -Tc: missing value";
           Help(3);
@@ -98,7 +98,7 @@ if ($Pocet>1){
       case '-t':    
         if ($Pocet>$i+1){
           $Timeout=$argv[++$i];
-          if ($DebugArgs) echo "\nDEBUG: -t ".$argv[$i];
+          if ($DebugArgs) echo "\nDEBUG: -t ".$Timeout;
         }else{
           echo "ERROR in parsing argument -t: missing value";
           Help(3);
@@ -119,7 +119,7 @@ if ($Pocet>1){
       case '-e':    
         if ($Pocet>$i+1){
           $Expected=$argv[++$i];
-          if ($DebugArgs) echo "\nDEBUG: -e ".$argv[$i];
+          if ($DebugArgs) echo "\nDEBUG: -e ".$Expected;
         }else{
           echo "ERROR in parsing argument -e: missing value";
           Help(3);
@@ -128,8 +128,9 @@ if ($Pocet>1){
 
       case '--proxy':    
         if ($Pocet>$i+1){
-          curl_setopt($ch, CURLOPT_PROXY, $argv[++$i]);
-          if ($DebugArgs) echo "\nDEBUG: --proxy ".$argv[$i];
+          $Proxy=$argv[++$i];
+          curl_setopt($ch, CURLOPT_PROXY, $Proxy);
+          if ($DebugArgs) echo "\nDEBUG: --proxy ".$Proxy;
         }else{
           echo "ERROR in parsing argument --proxy: missing value";
           Help(3);
@@ -139,7 +140,7 @@ if ($Pocet>1){
       case '--agent':    
         if ($Pocet>$i+1){
           $Agent=$argv[++$i];
-          if ($DebugArgs) echo "\nDEBUG: --agent ".$argv[$i];
+          if ($DebugArgs) echo "\nDEBUG: --agent ".$Agent;
         }else{
           echo "ERROR in parsing argument --agent: missing value";
           Help(3);
@@ -148,11 +149,12 @@ if ($Pocet>1){
 
       case '--ntlm':    
         if ($Pocet>$i+1){
+	  $Ntlm=$argv[++$i];
+          if ($DebugArgs) echo "\nDEBUG: --ntlm ".$Ntlm;
           curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_NTLM);
           curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
           //curl_setopt($ch, CURLOPT_UNRESTRICTED_AUTH, true);
-          curl_setopt($ch, CURLOPT_USERPWD, $argv[++$i]);
-          if ($DebugArgs) echo "\nDEBUG: --ntlm ".$argv[$i];
+          curl_setopt($ch, CURLOPT_USERPWD, $Ntlm);
         }else{
           echo "ERROR in parsing argument --ntlm: missing value";
           Help(3);
@@ -162,7 +164,7 @@ if ($Pocet>1){
       case '-g':    
         if ($Pocet>$i+1){
           $Grep=$argv[++$i];
-          if ($DebugArgs) echo "\nDEBUG: -g ".$argv[$i];
+          if ($DebugArgs) echo "\nDEBUG: -g ".$Grep;
         }else{
           echo "ERROR in parsing argument -g: missing value";
           Help(3);
@@ -172,7 +174,7 @@ if ($Pocet>1){
       case '--sizebelowcritical':    
         if ($Pocet>$i+1){
           $Sbc=$argv[++$i];
-          if ($DebugArgs) echo "\nDEBUG: --sizebelowcritical ".$argv[$i];
+          if ($DebugArgs) echo "\nDEBUG: --sizebelowcritical ".$Sbc;
         }else{
           echo "ERROR in parsing argument --sizebelowcritical: missing value";
           Help(3);
@@ -182,7 +184,7 @@ if ($Pocet>1){
       case '--sizebelowwarning':    
         if ($Pocet>$i+1){
           $Sbw=$argv[++$i];
-          if ($DebugArgs) echo "\nDEBUG: --sizebelowwarning ".$argv[$i];
+          if ($DebugArgs) echo "\nDEBUG: --sizebelowwarning ".$Sbw;
         }else{
           echo "ERROR in parsing argument --sizebelowwarning: missing value";
           Help(3);
@@ -192,7 +194,7 @@ if ($Pocet>1){
       case '--sizeovercritical':    
         if ($Pocet>$i+1){
           $Soc=$argv[++$i];
-          if ($DebugArgs) echo "\nDEBUG: --sizeovercritical ".$argv[$i];
+          if ($DebugArgs) echo "\nDEBUG: --sizeovercritical ".$Soc;
         }else{
           echo "ERROR in parsing argument --sizeovercritical: missing value";
           Help(3);
@@ -202,7 +204,7 @@ if ($Pocet>1){
       case '--sizeoverwarning':    
         if ($Pocet>$i+1){
           $Sow=$argv[++$i];
-          if ($DebugArgs) echo "\nDEBUG: --sizeoverwarning ".$argv[$i];
+          if ($DebugArgs) echo "\nDEBUG: --sizeoverwarning ".$Sow;
         }else{
           echo "ERROR in parsing argument --sizeoverwarning: missing value";
           Help(3);
@@ -271,21 +273,6 @@ if ($Pocet>1){
   $response=@curl_exec($ch);
   $errnum=curl_errno($ch);
 
-  if ($errnum){
-    if ($errnum==28){
-      // ran into curl timeout
-      if ($IncludePerf) {
-           echo 'CRITICAL Timeout '.$Timeout.'s exceeded. |total_time='.$Timeout.'.0s;'.$pTw.';'.$pTc.';; ';
-      } else {
-           echo 'CRITICAL Timeout '.$Timeout.'s exceeded.';
-      }
-      exit(2);
-    }else{
-      echo "CRITICAL curl returned error: ".curl_error($ch);
-      exit(2);
-    }
-  }
-
   $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
   $total_time = number_format(curl_getinfo($ch, CURLINFO_TOTAL_TIME), 6);
   $namelookup_time = number_format(curl_getinfo($ch, CURLINFO_NAMELOOKUP_TIME), 6);
@@ -325,9 +312,23 @@ BODY:
 $body
 ";
   }
+
+  if ($errnum){
+    if ($errnum==28){
+      // ran into curl timeout
+      if ($IncludePerf) {
+           echo 'CRITICAL Timeout '.$Timeout.'s exceeded. |total_time='.$Timeout.'.0s;'.$pTw.';'.$pTc.';; ';
+      } else {
+           echo 'CRITICAL Timeout '.$Timeout.'s exceeded.';
+      }
+      exit(2);
+    }else{
+      echo "CRITICAL curl returned error: ".curl_error($ch);
+      exit(2);
+    }
+  }
+
   @curl_close($ch);
-
-
 
   $Perf= '|page_size='.$size_download.'B;;;; total_time='.$total_time.'s;'.$pTw.';'.$pTc.';; namelookup_time='.$namelookup_time.'s;;;; connect_time='.$connect_time.'s;;;; redirect_time='.$redirect_time.'s;;;; ';
   if (isset($Sbc) or isset($Sbw)){
@@ -342,6 +343,11 @@ $body
   if (isset($Expected)) {
     if ($http_code != $Expected) {
       $Msg.='CRITICAL http_response code '.$http_code.' does not match expected '.$Expected;
+      nagios_exit(2);
+    }
+  }else{
+    if ($http_code != 200) {
+      $Msg.='CRITICAL http_response code '.$http_code;
       nagios_exit(2);
     }
   }
