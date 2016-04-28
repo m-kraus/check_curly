@@ -29,7 +29,8 @@ Originally written by Vit Safar, extended by Michael Kraus
     --sizebelowwarning Warning below page size in bytes [SIZE]
     --sizeoverwarning Warning over page size in bytes [SIZE]
 
-    --show Show page
+    --showheaders Show page headers
+    --showbody Show page body
     --noperfdata Exclude performance data
 
     --nullcookiejar Set cookie jar to /dev/null (workaround to prevent infinite loop when redirecting)
@@ -47,7 +48,8 @@ $Debug=0;
 $Agent='Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/6.0)';
 $IncludePerf=1;
 $Msg='';
-$ShowPage=0;
+$ShowPageHeaders=0;
+$ShowPageBody=0;
 $Timeout=10;
 
 $omd_root = getenv('OMD_ROOT');
@@ -153,7 +155,7 @@ if ($Pocet>1){
           if ($DebugArgs) echo "\nDEBUG: --ntlm ".$Ntlm;
           curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_NTLM);
           curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
-          //curl_setopt($ch, CURLOPT_UNRESTRICTED_AUTH, true);
+          curl_setopt($ch, CURLOPT_UNRESTRICTED_AUTH, 1);
           curl_setopt($ch, CURLOPT_USERPWD, $Ntlm);
         }else{
           echo "ERROR in parsing argument --ntlm: missing value";
@@ -211,9 +213,14 @@ if ($Pocet>1){
         }
         break;
 
-      case '--show':    
-        $ShowPage=1;
-        if ($DebugArgs) echo "\nDEBUG: --show";
+      case '--showheaders':    
+        $ShowPageHeaders=1;
+        if ($DebugArgs) echo "\nDEBUG: --showheaders";
+        break;
+
+      case '--showbody':    
+        $ShowPageBody=1;
+        if ($DebugArgs) echo "\nDEBUG: --showbody";
         break;
 
       case '--noperfdata':    
@@ -262,6 +269,8 @@ if ($Pocet>1){
 
 
   curl_setopt($ch, CURLOPT_FRESH_CONNECT, 1);
+  curl_setopt($ch, CURLOPT_COOKIESESSION, 1);
+  curl_setopt($ch, CURLOPT_MAXREDIRS, 20);
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
   curl_setopt($ch, CURLOPT_HEADER, 1);
   curl_setopt($ch, CURLOPT_USERAGENT, $Agent );
@@ -394,9 +403,11 @@ $body
 
 function nagios_exit($status) {
   global $IncludePerf;
-  global $ShowPage;
+  global $ShowPageHeaders;
+  global $ShowPageBody;
   global $Msg;
   global $Perf;
+  global $header;
   global $body;
   global $url;
   global $effective_url;
@@ -406,7 +417,8 @@ function nagios_exit($status) {
   if ($IncludePerf) $Msg.=$Perf;
   echo "$Msg\n";
 
-  if ($ShowPage) echo "\n\n----------------------------- Page content ----------------------------\n\n".$body;
+  if ($ShowPageHeaders) echo "\n\n----------------------------- Page Headers ----------------------------\n\n".$header;
+  if ($ShowPageBody) echo "\n\n----------------------------- Page Body ----------------------------\n\n".$body;
 
   exit($status);
 }
