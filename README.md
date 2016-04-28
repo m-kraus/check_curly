@@ -2,6 +2,18 @@
 
 check_curly is a plugin for nagios and similar monitoring tools like icinga, naemon or shinken.  
 
+PHP with CURL-extension needs to be installed. Depending on your distribution, different packages ar required.
+On Redhat RHEL or CentOS for example install the following packages:
+
+    yum install php-common php-cli
+
+On Debian or Ubuntu install those packages:
+
+    apt-get install php5-cli php5-curl
+
+
+## Help
+
     ./check_curly --help
     
     check_curly
