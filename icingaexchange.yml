@@ -1,0 +1,18 @@
+name: check_curly
+description: "file:///README.md"
+url: "https://github.com/m-kraus/check_curly"
+tags: website, curl, php
+vendor: Linux
+target: Website
+type: Plugin
+license: gplv3
+releases: 
+  - 
+    name: 1.0
+    description: "1.0 Release"
+    files: 
+      - 
+        name: check_curly
+        url: "file:///check_curly"
+        description: "Initial release"
+        checksum: 0e09f2627e3efc946a1ac5f84391abbf
