@@ -240,8 +240,7 @@ if ($Pocet>1){
 
       default:
         echo "ERROR in argument parsing: ".$argv[$i];
-        Help();
-        exit(2);
+        Help(3);
         break;
     }
   }
