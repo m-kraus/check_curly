@@ -63,6 +63,7 @@ if ($Pocet>1){
     switch ($argv[$i]){
       case '--debug':    
         $Debug=1;
+	curl_setopt($ch, CURLOPT_VERBOSE, true);
         if ($DebugArgs) echo "\nDEBUG: --debug";
         break;
 
