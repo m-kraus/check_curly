@@ -42,10 +42,13 @@ On Debian or Ubuntu install those packages:
         --sizebelowwarning Warning below page size in bytes [SIZE]
         --sizeoverwarning Warning over page size in bytes [SIZE]
     
-        --show Show page
+        --showheaders Show page headers
+        --showbody Show page body
         --noperfdata Exclude performance data
     
         --nullcookiejar Set cookie jar to /dev/null (workaround to prevent infinite loop when redirecting)
+    
+        --alias Alternative text to be included in plugin output
     
         --debug Enable debug mode
     
