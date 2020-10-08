@@ -28,7 +28,7 @@ On Debian or Ubuntu install those packages:
         -f Follow redirects
         -k Ignore SSL certificate errors
     
-        -e Expected HTTP response code [HTTP_RESPONSE_CODE]
+        -e Expected HTTP response code [HTTP_RESPONSE_CODE[,HTTP_RESPONSE_CODE,...]]
     
         --proxy Proxy [http://PROXY:PORT]
         --agent Agent [USER_AGENT]
