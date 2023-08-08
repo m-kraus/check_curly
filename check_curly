@@ -385,8 +385,10 @@ $body
     nagios_exit(1);
   }
 
+  $hasGFlag = false;
   $foundAnySearchString = false;
   if (!empty($Grep)) {
+    $hasGFlag = true;
     foreach ($Grep as $searchString) {
       if (strstr($body, $searchString)) {
         $foundAnySearchString = true;
@@ -394,8 +396,8 @@ $body
       }
     }
   }
-  if (!$foundAnySearchString) {
-    $Msg .= 'CIRITCAL String ' . $searchString . ' not found';
+  if (!$foundAnySearchString && $hasGFlag) {
+    $Msg .= 'CIRITCAL None of the search strings were found';
     nagios_exit(2);
   }
 
